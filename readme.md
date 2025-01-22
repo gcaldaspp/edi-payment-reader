@@ -1,6 +1,6 @@
 # PAYMENT-READER
 
-Serviços responsável por escutar estar eventos vindos da GLIC, persistir na collection de histórico e produzir um evento para o compilador do EDI.
+Serviços responsável por escutar eventos vindos da GLIC, persistir na collection de histórico e produzir um evento para o compilador do EDI.
 
 ## Requisitos
 

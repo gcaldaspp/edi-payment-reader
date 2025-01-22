@@ -12,6 +12,10 @@ func kafkaConfig() *kafka.ConfigMap {
 	return &kafka.ConfigMap{
 		"bootstrap.servers": viper.GetString("KAFKA_BROKERS"),
 		"group.id":          viper.GetString("CONSUMER_GROUP"),
+		"security.protocol": viper.GetString("KAFKA_PROTOCOL"),
+		"sasl.mechanisms":   viper.GetString("KAFKA_MECHANISMS"),
+		"sasl.username":     viper.GetString("KAFKA_USER"),
+		"sasl.password":     viper.GetString("KAFKA_PASSWORD"),
 		"auto.offset.reset": "earliest",
 	}
 }
@@ -41,7 +45,8 @@ func StartKafkaConsumer(topic string, consumer func([]byte)) {
 	c, err := kafka.NewConsumer(kafkaConfig())
 
 	if err != nil {
-		panic(err)
+		slog.Error("There is an error on connect in kafka broker", "error", err)
+		return
 	}
 	defer c.Close()
 
