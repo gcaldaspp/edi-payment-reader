@@ -13,10 +13,6 @@ func NewPaymentConsumer(useCase payment.CreatePaymentUseCase) *PaymentConsumer {
 }
 
 func (pc *PaymentConsumer) Process(event PaymentEvent) {
-	p := &payment.Payment{
-		Id:              event.Payload.Id,
-		BranchPaymentId: event.Payload.BranchPaymentId,
-		Status:          event.Payload.Status,
-	}
+	p := ToDomain(&event)
 	pc.useCase.Execute(p)
 }
