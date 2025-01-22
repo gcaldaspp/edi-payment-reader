@@ -29,9 +29,11 @@ var WorkerCmd = &cobra.Command{
 
 		config.StartKafkaConsumer(topic, func(evt []byte) {
 			var event kafka.PaymentEvent
-			json.Unmarshal(evt, &event)
-			consumer.Process(event)
-			slog.Info("Received event with success", "event", evt)
+			err := json.Unmarshal(evt, &event)
+			if err == nil {
+				consumer.Process(event)
+				slog.Info("Received event with success", "branchPaymentId", event.Payload.BranchPaymentId)
+			}
 		})
 	},
 }

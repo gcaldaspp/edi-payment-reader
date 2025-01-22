@@ -7,6 +7,6 @@ type PaymentEvent struct {
 
 type PaymentPayload struct {
 	Id              int64  `json:"id"`
-	BranchPaymentId int64  `json:"branchPaymentId"`
+	BranchPaymentId string `json:"branchPaymentId"`
 	Status          string `json:"status"`
 }

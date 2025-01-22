@@ -2,7 +2,7 @@ package payment
 
 type PaymentDocument struct {
 	Id              int64  `bson:"_id"`
-	BranchPaymentId int64  `bson:"branchPaymentId"`
+	BranchPaymentId string `bson:"branchPaymentId"`
 	Status          string `bson:"status"`
 }
 

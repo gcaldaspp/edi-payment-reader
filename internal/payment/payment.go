@@ -2,7 +2,7 @@ package payment
 
 type Payment struct {
 	Id              int64
-	BranchPaymentId int64
+	BranchPaymentId string
 	Status          string
 }
 
