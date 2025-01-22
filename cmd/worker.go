@@ -8,6 +8,7 @@ import (
 	"github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/kafka"
 	"github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/payment"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var WorkerCmd = &cobra.Command{
@@ -15,7 +16,7 @@ var WorkerCmd = &cobra.Command{
 	Short: "Start worker kafka",
 	Long:  "Start worker kafka that listen an specific topic",
 	Run: func(cmd *cobra.Command, args []string) {
-		var topic, _ = cmd.Flags().GetString("topic")
+		var topic = viper.GetString("KAFKA_TOPIC")
 
 		db, err := config.InitMongoDB()
 		if err != nil {
@@ -36,9 +37,4 @@ var WorkerCmd = &cobra.Command{
 			}
 		})
 	},
-}
-
-func init() {
-	WorkerCmd.Flags().StringP("topic", "t", "", "Topic name")
-	WorkerCmd.MarkFlagRequired("topic")
 }
