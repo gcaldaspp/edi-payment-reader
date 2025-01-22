@@ -1,6 +1,6 @@
 package payment
 
-import "time"
+import "github.com/PicPay/ms-edi-wrk-payment-reader-go/pkg/types"
 
 type Payment struct {
 	Id                 int64
@@ -9,7 +9,7 @@ type Payment struct {
 	ProductId          int64
 	ProductType        string
 	PaymentAmount      float64
-	PaymentDate        time.Time
+	PaymentDate        types.DateOnly
 	CurrencyIsoCode    int64
 	Status             string
 	PrimaryAccountName string
