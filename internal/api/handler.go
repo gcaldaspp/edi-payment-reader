@@ -30,7 +30,7 @@ func (pc *PaymentController) PaymentHandler(ctx *gin.Context) {
 		return
 	}
 
-	slog.Info("Received payload", "event", event)
+	slog.Info("Received payload", "branchPaymentId", *event.Payload.BranchPaymentId)
 	pc.paymentConsumer.Process(event)
 	ctx.JSON(http.StatusOK, event)
 }
