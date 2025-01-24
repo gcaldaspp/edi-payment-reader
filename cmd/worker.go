@@ -5,8 +5,10 @@ import (
 	"log/slog"
 
 	"github.com/PicPay/ms-edi-wrk-payment-reader-go/config"
-	"github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/kafka"
-	"github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/payment"
+	kafka_consumer "github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/kafka/consumer"
+	kafka_producer "github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/kafka/producer"
+	payment_persistence "github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/payment/persistence"
+	payment_service "github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/payment/service"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -24,12 +26,13 @@ var WorkerCmd = &cobra.Command{
 			return
 		}
 
-		repository := payment.NewPaymentRepository(db)
-		service := payment.NewPaymentService(repository)
-		consumer := kafka.NewPaymentConsumer(service)
+		repository := payment_persistence.NewPaymentRepository(db)
+		producer := kafka_producer.NewPaymentProducer()
+		service := payment_service.NewPaymentService(repository, producer)
+		consumer := kafka_consumer.NewPaymentConsumer(service)
 
 		config.StartKafkaConsumer(topic, func(evt []byte) {
-			var event kafka.PaymentEvent
+			var event kafka_consumer.PaymentEvent
 			err := json.Unmarshal(evt, &event)
 			if err == nil {
 				consumer.Process(event)

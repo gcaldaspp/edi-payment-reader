@@ -1,4 +1,4 @@
-package payment
+package payment_domain
 
 import (
 	"time"
@@ -50,14 +50,10 @@ func (p *Payment) PaymentDateValue() *time.Time {
 	return nil
 }
 
-type Writer interface {
-	Create(payment *Payment) error
-}
-
-type PaymentRepository interface {
-	Writer
-}
-
-type CreatePaymentUseCase interface {
-	Execute(payment *Payment) error
+func (p *Payment) PaymentDateString() *string {
+	if p.PaymentDate != nil {
+		date := p.PaymentDate.ToString()
+		return &date
+	}
+	return nil
 }

@@ -1,7 +1,7 @@
-package kafka
+package kafka_consumer
 
 import (
-	"github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/payment"
+	payment_domain "github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/payment/domain"
 	"github.com/PicPay/ms-edi-wrk-payment-reader-go/pkg/types"
 )
 
@@ -39,8 +39,8 @@ type PaymentPayload struct {
 	PaymentAccountId   *string         `json:"paymentAccountId"`
 }
 
-func ToDomain(p *PaymentEvent) *payment.Payment {
-	return &payment.Payment{
+func ToDomain(p *PaymentEvent) *payment_domain.Payment {
+	return &payment_domain.Payment{
 		Id:                 p.Payload.Id,
 		BranchPaymentId:    p.Payload.BranchPaymentId,
 		BranchId:           p.Payload.BranchId,

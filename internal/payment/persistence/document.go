@@ -1,7 +1,9 @@
-package payment
+package payment_persistence
 
 import (
 	"time"
+
+	payment_domain "github.com/PicPay/ms-edi-wrk-payment-reader-go/internal/payment/domain"
 )
 
 type PaymentDocument struct {
@@ -34,7 +36,7 @@ type PaymentDocument struct {
 	EventType          *string    `bson:"eventType"`
 }
 
-func FromDomain(payment *Payment) *PaymentDocument {
+func FromDomain(payment *payment_domain.Payment) *PaymentDocument {
 	return &PaymentDocument{
 		Id:                 payment.Id,
 		BranchPaymentId:    payment.BranchPaymentId,
