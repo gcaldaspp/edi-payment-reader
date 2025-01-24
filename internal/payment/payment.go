@@ -1,6 +1,10 @@
 package payment
 
-import "github.com/PicPay/ms-edi-wrk-payment-reader-go/pkg/types"
+import (
+	"time"
+
+	"github.com/PicPay/ms-edi-wrk-payment-reader-go/pkg/types"
+)
 
 type Payment struct {
 	Id                 *int64
@@ -37,6 +41,13 @@ func (p *Payment) IsApproved() bool {
 		return *p.Status == "APPROVED"
 	}
 	return false
+}
+
+func (p *Payment) PaymentDateValue() *time.Time {
+	if p.PaymentDate != nil {
+		return &p.PaymentDate.Time
+	}
+	return nil
 }
 
 type Writer interface {

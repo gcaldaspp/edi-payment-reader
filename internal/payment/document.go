@@ -42,7 +42,7 @@ func FromDomain(payment *Payment) *PaymentDocument {
 		ProductId:          payment.ProductId,
 		ProductType:        payment.ProductType,
 		PaymentAmount:      payment.PaymentAmount,
-		PaymentDate:        &payment.PaymentDate.Time,
+		PaymentDate:        payment.PaymentDateValue(),
 		CurrencyIsoCode:    payment.CurrencyIsoCode,
 		Status:             payment.Status,
 		PrimaryAccountName: payment.PrimaryAccountName,
